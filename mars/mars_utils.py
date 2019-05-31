@@ -343,22 +343,11 @@ def gen_mars_revision_file(version_file_path, tag=''):
     output += html
 
     print (''.join(output.splitlines()))
-
-    
-def check_vs_env():
-    vs_tool_dir = os.getenv("VS140COMNTOOLS")
-    
-    if not vs_tool_dir:
-        print("You must install visual studio 2015 for build.")
-        return False
-    
-    return True
     
 def merge_win_static_libs(src_libs, dst_lib):
-    
-    vs_tool_dir = os.getenv("VS140COMNTOOLS")
-    lib_cmd = vs_tool_dir + '/../../VC/bin/lib.exe'
+    lib_cmd = 'lib'
     print('lib cmd:' + lib_cmd)
+    print('merging '+'&&'.join(src_libs)+' into '+ dst_lib)
     
     src_libs.insert(0, '/OUT:' + dst_lib)
     src_libs.insert(0, lib_cmd)

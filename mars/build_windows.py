@@ -14,8 +14,8 @@ SCRIPT_PATH = os.path.split(os.path.realpath(__file__))[0]
 BUILD_OUT_PATH = 'cmake_build/Windows'
 WIN_LIBS_INSTALL_PATH = BUILD_OUT_PATH + "/Windows.out/"
 WIN_RESULT_DIR = WIN_LIBS_INSTALL_PATH + 'win/'
-WIN_BUILD_CMD = 'cmake ../.. -G "Visual Studio 14 2015" -T v140_xp && cmake --build . --target install --config %s'
-WIN_GEN_PROJECT_CMD = 'cmake ../.. -G "Visual Studio 14 2015" -T v140_xp'
+WIN_BUILD_CMD = 'cmake ../..  && cmake --build . --target install --config %s'
+WIN_GEN_PROJECT_CMD = 'cmake ../..'
 
 
 def build_windows(incremental, tag='', config='Release'):
@@ -43,7 +43,7 @@ def build_windows(incremental, tag='', config='Release'):
     headers.update(COMM_COPY_HEADER_FILES)
     headers.update(WIN_COPY_EXT_FILES)
     copy_file_mapping(headers, '../', WIN_RESULT_DIR)
-    
+    sub_folders = ["comm", "boost", "xlog"]
     copy_windows_pdb(BUILD_OUT_PATH, sub_folders, config, WIN_LIBS_INSTALL_PATH)
 
     print('==================Output========================')
@@ -120,10 +120,6 @@ def gen_win_project(tag=''):
 
 
 def main():
-
-    if not check_vs_env():
-        return
-
     while True:
         if len(sys.argv) >= 3:
             build_windows(False, sys.argv[1], sys.argv[2])

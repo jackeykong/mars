@@ -16,11 +16,12 @@
 #define TSSGC_H_
 
 #include <windows.h>
-#include <thr/threads.h>
+#include <thread>
 #include <list>
 #include  <map>
 #include  <set>
 
+using tss_dtor_t = void(*)(void*);
 
 struct TssResList {
     tss_dtor_t         pfnFree;

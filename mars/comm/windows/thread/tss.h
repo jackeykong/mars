@@ -118,7 +118,7 @@ class Tss {
 
 #else  // tss implement by vc11 tss lib
 
-#include <thr/threads.h>
+#include <thread>
 #include "assert/__assert.h"
 
 class Tss {
